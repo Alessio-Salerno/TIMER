@@ -66,23 +66,59 @@
         <script>
             
             // INPUT
-            let secondi = document.querySelector('#secondi')
+        let secondi = document.querySelector('#secondi')
 
 
 
             // BUTTON
-            let startButton = document.querySelector('#startButton');
-            let resetButton = document.querySelector('#resetButton');
-            let pausaButton = document.querySelector('#pausaButton');
+        let startButton = document.querySelector('#startButton');
+        let resetButton = document.querySelector('#resetButton');
+        let pausaButton = document.querySelector('#pausaButton');
 
             // H2
-            let countdownDisplay = document.querySelector('#countdownDisplay');
+         let countdownDisplay = document.querySelector('#countdownDisplay');
             
          
-           
+            // VARIABILI
+            let intervallo;
+            let counter;
+            let remaingSeconds = 0;
 
+           
+            startButton.addEventListener( 'click', () => {
+                clearInterval(intervallo);
+                counter = secondi.value 
+ 
+                if(remaingSeconds !== 0 ){
+                  counter = remaingSeconds;
+                }
+                
+
+                intervallo = setInterval( () =>{
+                    if(counter < 0){
+                        clearInterval(intervallo);
+                        countdownDisplay.innerHTML = 'tempo scaduto';
+                    }
+                  else{
+                    countdownDisplay.innerHTML= counter
+                    counter --
+                  }
+
+                }, 1000);
+            })
             
 
+            pausaButton.addEventListener('click', () => {
+                clearInterval(intervallo);
+                remaingSeconds = counter
+            })
+        
+
+            resetButton.addEventListener('click', () => {
+                secondi.value = '';
+                clearInterval(intervallo);
+                countdownDisplay.innerHTML = '';
+            })
 
 
 
