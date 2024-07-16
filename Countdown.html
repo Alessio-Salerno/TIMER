@@ -110,6 +110,7 @@
         
 
             resetButton.addEventListener('click', () => {
+                 remaingSeconds = 0;
                 countdownInput.value = '';
                 clearInterval(intervallo);
                 remainingTime.innerHTML = '';
