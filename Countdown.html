@@ -21,7 +21,13 @@
         input#secondi {
             width: 25pc;
             padding: 5px;
-        }     
+        }
+        
+        
+        
+        /* BOTTONI */
+        
+        
         
     </style>
     
@@ -33,9 +39,12 @@
     <h1 class="text-center">Start Countdown</h1>
     
     
-    <div class="container-fluid d-flex justify-content-center mt-5">
-        <input type="number"  id="secondi" placeholder="Inserisci i secondi" min="0">
-    </div>
+        
+        <!-- INPUT PER IL COUNTDOWN -->
+        <label for="countdownInput">Inserisci il tempo in secondi:</label>
+        <input type="text"  id="countdown-Input" min="1" max="3600">
+        <p>Tempo rimanente: <span id="remainingTime">--</span></p>
+   
     
     <br>
     
@@ -47,11 +56,6 @@
             <button type="button" class="btn btn-outline-dark" id="pausaButton">Pausa</button>
         </div>
         
-        
-        <div class="display mt-5">
-            <h2 class="text-center" id="countdownDisplay">0</h2>
-        </div>
-        
 
 
 
@@ -60,28 +64,25 @@
         <script>
             
             // INPUT
-        let secondi = document.querySelector('#secondi')
-
-
+        let remainingTime = document.querySelector('#remainingTime') // -> tempo rimanente
+        let countdownInput = document.querySelector('#countdown-Input') // Qui si inseriscono i secondi
 
             // BUTTON
         let startButton = document.querySelector('#startButton');
         let resetButton = document.querySelector('#resetButton');
         let pausaButton = document.querySelector('#pausaButton');
 
-            // H2
-         let countdownDisplay = document.querySelector('#countdownDisplay');
             
          
             // VARIABILI
-            let intervallo;
-            let counter;
-            let remaingSeconds = 0;
+            let intervallo; /* Memorizza l'intervallo del timer*/
+            let counter;  /* Contatore di secondi*/
+            let remaingSeconds = 0; /* Mmemorizza i secondi rimanenti quando si mette in pausa*/
 
            
             startButton.addEventListener( 'click', () => {
-                clearInterval(intervallo);
-                counter = secondi.value 
+                clearInterval(intervallo); /* Ferma eventuali timer attivi. */
+                counter = countdownInput.value // secondi che può inserire l'utente
  
                 if(remaingSeconds !== 0 ){
                   counter = remaingSeconds;
@@ -91,10 +92,10 @@
                 intervallo = setInterval( () =>{
                     if(counter < 0){
                         clearInterval(intervallo);
-                        countdownDisplay.innerHTML = 'tempo scaduto';
+                        remainingTime.innerHTML = 'tempo scaduto';
                     }
                   else{
-                    countdownDisplay.innerHTML= counter
+                    remainingTime.innerHTML= counter
                     counter --
                   }
 
@@ -109,9 +110,9 @@
         
 
             resetButton.addEventListener('click', () => {
-                secondi.value = '';
+                countdownInput.value = '';
                 clearInterval(intervallo);
-                countdownDisplay.innerHTML = '';
+                remainingTime.innerHTML = '';
             })
 
 
@@ -123,3 +124,4 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>
     </html>
+
